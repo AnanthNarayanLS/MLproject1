@@ -32,7 +32,7 @@ class DataTransformation:
                 'race_ethnicity',
                 'parental_level_of_education',
                 'lunch',
-                'test_preperation_course',
+                'test_preparation_course',
             ]
 
             num_pipeline = Pipeline(
@@ -48,7 +48,7 @@ class DataTransformation:
                 steps=[
                     ("imputer",SimpleImputer(strategy="most_frequent")),
                     ("one_hot_encoder",OneHotEncoder()),
-                    ("scaler",StandardScaler())
+                    ("scaler",StandardScaler(with_mean=False))
                 ]
             )
 
@@ -61,6 +61,8 @@ class DataTransformation:
                     ("cat_pipeline",cat_pipeline,categorical_columns),
                 ]
             )
+
+            return preprocessing
 
         except Exception as e:
             raise CustomException(e,sys)
